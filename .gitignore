@@ -1,3 +1,11 @@
 .env
 data
-venv
+
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Docker関連
+*.log
+.env
