@@ -12,7 +12,7 @@
 まず、このリポジトリをローカル環境にクローンします。
 
 ```sh
-git clone <リポジトリURL>
+git clone https://github.com/ku6kaw/datasets-retriever
 cd datasets-retriever
 ```
 
