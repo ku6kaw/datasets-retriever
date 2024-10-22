@@ -15,13 +15,13 @@ CITATION_COUNT_URL = "https://opencitations.net/index/api/v1/citation-count/"
 DATACITE_API_BASE_URL = "https://api.datacite.org/dois"
 SCOPUS_BASE_URL = "https://api.elsevier.com/content/abstract/doi/"
 
-def retrieve_datasets(query, rows=10, max_results=30):
+def retrieve_datasets(query, rows=10, max_pages=3):
     """
-    DataCite APIを使用して指定したクエリのデータセットを全ページにわたって取得する関数
+    DataCite APIを使用して指定したクエリのデータセットを最大3ページまで取得する関数
     """
     page_number = 1
     all_datasets = []
-    while len(all_datasets) < max_results:
+    while page_number <= max_pages:
         params = {
             "query": query,  # クエリ文字列
             "resource-type-id": "dataset",  # データセットを対象とする
@@ -42,7 +42,7 @@ def retrieve_datasets(query, rows=10, max_results=30):
         else:
             print(f"Failed to retrieve datasets for query: {query}, Status code: {response.status_code}")
             break
-    return all_datasets[:max_results]
+    return all_datasets
 
 def fetch_citation_count(doi):
     """
@@ -120,7 +120,7 @@ def extract_scopus_info(scopus_data):
 def main():
     # クエリを指定してデータセットを取得
     query = input("Enter your search query: ")
-    datasets = retrieve_datasets(query, rows=100, max_results=30)
+    datasets = retrieve_datasets(query, rows=100, max_pages=3)
 
     if not datasets:
         print("No datasets found for the given query.")
